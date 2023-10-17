@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1013011666576",
+    "project_id": "vpnserver-dcbb6",
+    "storage_bucket": "vpnserver-dcbb6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1013011666576:android:9d05c24912d8b3e6456a15",
+        "android_client_info": {
+          "package_name": "com.phat.vpn"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCliVAIb7SXLQ_Wmoacy9xtajIaUEFOQ_w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
