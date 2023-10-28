@@ -15,8 +15,8 @@ class APIs {
     final List<Vpn> vpnList = [];
 
     try {
-      final res = await get(
-          Uri.parse('https://ipremium.io/libs/vpn/api.php?action=listsrv'));
+      final res = await get(Uri.parse(
+          'https://ipremium.io/libs/vpn/api.php?action=getaccess&type=free'));
       final csvString = res.body.split("#")[1].replaceAll('*', '');
 
       List<List<dynamic>> list = const CsvToListConverter().convert(csvString);
@@ -44,8 +44,8 @@ class APIs {
 
   static Future<void> getIPDetails({required Rx<IPDetails> ipData}) async {
     try {
-      final res = await get(
-          Uri.parse('https://ipremium.io/libs/vpn/api.php?action=listsrv'));
+      final res = await get(Uri.parse(
+          'https://ipremium.io/libs/vpn/api.php?action=getaccess&type=free'));
       final data = jsonDecode(res.body);
       log(data.toString());
       ipData.value = IPDetails.fromJson(data);

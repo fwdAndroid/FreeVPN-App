@@ -17,44 +17,65 @@ class LocationScreen extends StatelessWidget {
     if (_controller.vpnList.isEmpty) _controller.getVpnData();
 
     return Obx(
-      () => Scaffold(
-        //app bar
-        appBar: AppBar(
-          iconTheme: IconThemeData(color: Colors.black),
-          backgroundColor: Colors.white,
-          title: Text(
-            'VPN Locations (${_controller.vpnList.length})',
-            style: TextStyle(color: Colors.black),
+      () => SafeArea(
+        child: Scaffold(
+          //app bar
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(107.0),
+            child: AppBar(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.vertical(
+                  bottom: Radius.circular(30),
+                  top: Radius.circular(30),
+                ),
+              ),
+              actions: [
+                IconButton(
+                    onPressed: () {
+                      _controller.getVpnData();
+                    },
+                    icon: Icon(
+                      Icons.refresh,
+                    ))
+              ],
+              backgroundColor: Color(0xff185BFF),
+              title: Text('Countries'),
+            ),
           ),
+
+          //refresh button
+
+          body: _controller.isLoading.value
+              ? _loadingWidget()
+              : _controller.vpnList.isEmpty
+                  ? _noVPNFound()
+                  : _vpnData(),
         ),
-
-        //refresh button
-        // floatingActionButton: Padding(
-        //   padding: const EdgeInsets.only(bottom: 10, right: 10),
-        //   child: FloatingActionButton(
-        //       backgroundColor: Colors.black,
-        //       onPressed: () => _controller.getVpnData(),
-        //       child: Icon(CupertinoIcons.refresh)),
-        // ),
-
-        body: _controller.isLoading.value
-            ? _loadingWidget()
-            : _controller.vpnList.isEmpty
-                ? _noVPNFound()
-                : _vpnData(),
       ),
     );
   }
 
-  _vpnData() => ListView.builder(
-      itemCount: _controller.vpnList.length,
-      physics: BouncingScrollPhysics(),
-      padding: EdgeInsets.only(
-          top: mq.height * .015,
-          bottom: mq.height * .1,
-          left: mq.width * .04,
-          right: mq.width * .04),
-      itemBuilder: (ctx, i) => VpnCard(vpn: _controller.vpnList[i]));
+  _vpnData() => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text("Free Locations (${_controller.vpnList.length})"),
+          ),
+          SizedBox(
+            height: 530,
+            child: ListView.builder(
+                itemCount: _controller.vpnList.length,
+                physics: BouncingScrollPhysics(),
+                padding: EdgeInsets.only(
+                    top: mq.height * .015,
+                    bottom: mq.height * .1,
+                    left: mq.width * .04,
+                    right: mq.width * .04),
+                itemBuilder: (ctx, i) => VpnCard(vpn: _controller.vpnList[i])),
+          ),
+        ],
+      );
 
   _loadingWidget() => SizedBox(
         width: double.infinity,

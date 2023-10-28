@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/route_manager.dart';
+import 'package:vpn_basic_project/dashboard/main_screen.dart';
 
 import '../main.dart';
 import 'home_screen.dart';
@@ -16,12 +17,12 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration(seconds: 5), () {
+    Future.delayed(Duration(milliseconds: 1500), () {
       //exit full-screen
       SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
 
       //navigate to home
-      Get.off(() => HomeScreen());
+      Get.off(() => MainScreen());
       // Navigator.pushReplacement(
       //     context, MaterialPageRoute(builder: (_) => HomeScreen()));
     });
@@ -34,14 +35,11 @@ class _SplashScreenState extends State<SplashScreen> {
 
     return Scaffold(
       body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           //app logo
-          Center(
-            child: Container(
-                width: mq.width * .4, child: Image.asset('assets/logo.png')),
-          ),
+          Center(child: Image.asset('assets/logo.png'))
+
+          //label
         ],
       ),
     );

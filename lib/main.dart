@@ -1,8 +1,8 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:vpn_basic_project/firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';
+
 import 'helpers/pref.dart';
 import 'screens/splash_screen.dart';
 
@@ -16,9 +16,8 @@ Future<void> main() async {
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
 
   //firebase initialization
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await Firebase.initializeApp();
+
   //initializing remote config
 
   await Pref.initializeHive();
@@ -56,6 +55,6 @@ class MyApp extends StatelessWidget {
 }
 
 extension AppTheme on ThemeData {
-  Color get lightText => Pref.isDarkMode ? Colors.black : Colors.white;
-  Color get bottomNav => Pref.isDarkMode ? Colors.black : Colors.white;
+  Color get lightText => Pref.isDarkMode ? Colors.white70 : Colors.black54;
+  Color get bottomNav => Pref.isDarkMode ? Colors.white12 : Colors.blue;
 }

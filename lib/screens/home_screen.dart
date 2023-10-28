@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../controllers/home_controller.dart';
+
 import '../main.dart';
 
 import '../models/vpn_status.dart';
@@ -25,21 +26,17 @@ class HomeScreen extends StatelessWidget {
     });
 
     return Scaffold(
+      backgroundColor: Colors.white,
+
       //app bar
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.white,
-        leading: Icon(
-          CupertinoIcons.home,
-          color: Colors.black,
-        ),
         title: Text(
           'Free VPN',
           style: TextStyle(color: Colors.black),
         ),
       ),
-
-      bottomNavigationBar: _changeLocation(context),
 
       //body
       body: Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
@@ -58,10 +55,10 @@ class HomeScreen extends StatelessWidget {
                   subtitle: 'FREE',
                   icon: CircleAvatar(
                     radius: 30,
-                    backgroundColor: Colors.white,
+                    backgroundColor: Colors.blue,
                     child: _controller.vpn.value.countryLong.isEmpty
                         ? Icon(Icons.vpn_lock_rounded,
-                            size: 30, color: Colors.black)
+                            size: 30, color: Colors.white)
                         : null,
                     backgroundImage: _controller.vpn.value.countryLong.isEmpty
                         ? null
@@ -79,7 +76,7 @@ class HomeScreen extends StatelessWidget {
                     radius: 30,
                     backgroundColor: Colors.orange,
                     child: Icon(Icons.equalizer_rounded,
-                        size: 30, color: Colors.black),
+                        size: 30, color: Colors.white),
                   )),
             ],
           ),
@@ -99,7 +96,7 @@ class HomeScreen extends StatelessWidget {
                           radius: 30,
                           backgroundColor: Colors.lightGreen,
                           child: Icon(Icons.arrow_downward_rounded,
-                              size: 30, color: Colors.black),
+                              size: 30, color: Colors.white),
                         )),
 
                     //upload
@@ -108,12 +105,30 @@ class HomeScreen extends StatelessWidget {
                         subtitle: 'UPLOAD',
                         icon: CircleAvatar(
                           radius: 30,
-                          backgroundColor: Colors.white,
+                          backgroundColor: Colors.blue,
                           child: Icon(Icons.arrow_upward_rounded,
-                              size: 30, color: Colors.black),
+                              size: 30, color: Colors.white),
                         )),
                   ],
-                ))
+                )),
+        ElevatedButton.icon(
+            icon: Icon(
+              Icons.wifi,
+              color: Colors.black,
+            ),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Color(0xffE8E9EA),
+              fixedSize: Size(296, 56),
+              shape: StadiumBorder(),
+            ),
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (builder) => LocationScreen()));
+            },
+            label: Text(
+              "Change Server",
+              style: TextStyle(color: Colors.black),
+            )),
       ]),
     );
   }
@@ -152,7 +167,7 @@ class HomeScreen extends StatelessWidget {
                         Icon(
                           Icons.power_settings_new,
                           size: 28,
-                          color: Colors.black,
+                          color: Colors.white,
                         ),
 
                         SizedBox(height: 4),
@@ -162,7 +177,7 @@ class HomeScreen extends StatelessWidget {
                           _controller.getButtonText,
                           style: TextStyle(
                               fontSize: 12.5,
-                              color: Colors.black,
+                              color: Colors.white,
                               fontWeight: FontWeight.w500),
                         )
                       ],
@@ -179,12 +194,12 @@ class HomeScreen extends StatelessWidget {
                 EdgeInsets.only(top: mq.height * .015, bottom: mq.height * .02),
             padding: EdgeInsets.symmetric(vertical: 6, horizontal: 16),
             decoration: BoxDecoration(
-                color: Colors.white, borderRadius: BorderRadius.circular(15)),
+                color: Colors.blue, borderRadius: BorderRadius.circular(15)),
             child: Text(
               _controller.vpnState.value == VpnEngine.vpnDisconnected
                   ? 'Not Connected'
                   : _controller.vpnState.replaceAll('_', ' ').toUpperCase(),
-              style: TextStyle(fontSize: 12.5, color: Colors.black),
+              style: TextStyle(fontSize: 12.5, color: Colors.white),
             ),
           ),
 
@@ -196,43 +211,4 @@ class HomeScreen extends StatelessWidget {
       );
 
   //bottom nav to change location
-  Widget _changeLocation(BuildContext context) => SafeArea(
-          child: Semantics(
-        button: true,
-        child: InkWell(
-          onTap: () => Get.to(() => LocationScreen()),
-          child: Container(
-              color: Theme.of(context).bottomNav,
-              padding: EdgeInsets.symmetric(horizontal: mq.width * .04),
-              height: 60,
-              child: Row(
-                children: [
-                  //icon
-                  Icon(CupertinoIcons.globe, color: Colors.black, size: 28),
-
-                  //for adding some space
-                  SizedBox(width: 10),
-
-                  //text
-                  Text(
-                    'Change Location',
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500),
-                  ),
-
-                  //for covering available spacing
-                  Spacer(),
-
-                  //icon
-                  CircleAvatar(
-                    backgroundColor: Colors.black,
-                    child: Icon(Icons.keyboard_arrow_right_rounded,
-                        color: Colors.white, size: 26),
-                  )
-                ],
-              )),
-        ),
-      ));
 }
